@@ -1,6 +1,6 @@
-var bw = bw || {};
+var DataBindr = DataBindr || {};
 
-bw.Model = (function () {
+DataBindr.Model = (function () {
 
 var Model = (function() {
     
