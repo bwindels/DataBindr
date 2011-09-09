@@ -44,7 +44,8 @@ var Model = (function() {
     
     var modelCtor = function(inheritFrom, props) {
         var modelType = function() {},
-            key;
+            key,
+			value;
         
         if(!props) {
             props = inheritFrom;
@@ -58,8 +59,16 @@ var Model = (function() {
         
         for(key in props) {
             if(props.hasOwnProperty( key )) {
-                modelType.prototype[ key ] = wrapProperty( key );
-                setValue(modelType.prototype, key, props[ key ]);            
+				value = props[ key ];
+				//don't wrap functions, just add them as is to the prototype
+				if(typeof value === "function") {
+					modelType.prototype[ key ] = value;
+				} else {
+					//make a getter/setter function with an onchange event
+					modelType.prototype[ key ] = wrapProperty( key );
+					//set default value on prototype
+	                setValue(modelType.prototype, key, props[ key ]);	
+				}            
             }
         }
         

@@ -6,7 +6,10 @@
 				var User = new DataBindr.Model({
 					name: "",
 					lastname: "",
-					birthyear: 1900
+					birthyear: 1900,
+				    age: function() {
+				        return new Date().getFullYear() - this.birthyear();
+				    }
 				});
 				
 				var me = new User(),
@@ -24,6 +27,7 @@
 				
 				console.log("listener got called?: "+setterlistenercalled);
 				console.log("name: "+me.name());
+				console.log("calculated property age: "+me.age());
 				console.log("lastname: "+me.lastname());
 				console.log("default value for birthyear: "+me.birthyear());
 				console.log("json: "+JSON.stringify( me.simplify() ));
